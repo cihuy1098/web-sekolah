@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class GuruController extends Controller
+class GaleriController extends Controller
 {
     public function index()
     {
         $data = [
-            'title' => 'Guru'
+            'title' => 'Galeri'
         ];
-        return view('admin.guru', $data);
+        return view('galeri.index', $data);
     }
     //
 }

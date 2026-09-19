@@ -11,7 +11,7 @@ class BeritaController extends Controller
         $data = [
             'title' => 'Berita'
         ];
-        return view('profil.index', $data);
+        return view('berita.index', $data);
     }
     //
 }

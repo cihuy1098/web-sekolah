@@ -6,5 +6,12 @@ use Illuminate\Http\Request;
 
 class EkstrakulikulerController extends Controller
 {
+    public function index()
+    {
+        $data = [
+            'title' => 'Ekstrakulikuler'
+        ];
+        return view('ekstrakulikuler.index', $data);
+    }
     //
 }
