@@ -39,7 +39,7 @@
 
     <link rel="stylesheet" href="{{ asset ('css/main.css')}}">
 
-    
+
     <!-- Popper -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <!-- Main Styling -->
@@ -75,7 +75,7 @@
             alt="main_logo" />
           <span
             class="ml-1 font-semibold transition-all duration-200 ease-nav-brand"
-            >SMK</span
+            >MTs YAPPENA</span
           >
         </a>
       </div>
@@ -710,7 +710,7 @@
         class="ease-soft-in-out xl:ml-68.5 relative rounded-xl transition-all duration-200">
        <footer class="pt-4" style="margin-top: auto;">
           <div class="w-full px-6 mx-auto">
-              
+
             <div class="flex flex-wrap items-center -mx-3 lg:justify-between">
               <div
                 class="w-full max-w-full px-3 mt-0 mb-6 shrink-0 lg:mb-0 lg:w-1/2 lg:flex-none">
@@ -726,7 +726,7 @@
                     class="font-semibold text-slate-700"
                     target="_blank"
                     >Creative Tim</a>
-                  
+
                   <span class="w-full"> Distributed by ❤️ ThemeWagon </span>
                 </div>
               </div>
