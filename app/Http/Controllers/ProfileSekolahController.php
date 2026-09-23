@@ -8,8 +8,10 @@ class ProfileSekolahController extends Controller
 {
     public function index()
     {
+        // $profileSekolah = ProfileSekolah::first();
         $data = [
-            'title' => 'Profile Sekolah'
+            'title' => 'Profile Sekolah',
+            // 'profileSekolah' =>
         ];
         return view('profil.index', $data);
     }
