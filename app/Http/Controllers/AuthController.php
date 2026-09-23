@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -20,15 +21,24 @@ class AuthController extends Controller
             ],
             [
                 'email.required' => 'Email wajib diisi',
-                'email.email' => 'Email.tidak valid',
-                'password.required' => 'password wajib diisi'
+                'email.email' => 'Email tidak valid',
+                'password.required' => 'Password wajib diisi'
             ]
         );
 
-        if (Auth::attemp($credentials)){
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->Intended('admin.dashboard')->width('success', 'Selamat Datang' . Auth::user()->name);
+
+            return redirect()
+                ->intended('admin.dashboard')
+                ->with('success', 'Selamat Datang ' . Auth::user()->name);
         }
+
+        return back()
+            ->withErrors([
+                'email' => 'Email atau password salah.',
+            ])
+            ->withInput();
     }
-    //
 }
+

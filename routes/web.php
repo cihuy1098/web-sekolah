@@ -6,9 +6,6 @@ use App\Http\Controllers\EkstrakulikulerController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SiswaController;
-
-
-
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
