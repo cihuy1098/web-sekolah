@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('profile_sekolah', function (Blueprint $table) {
+        Schema::table('profileSekolah', function (Blueprint $table) {
             //
 
              $table->string('principal')->nullable()->after('npsn');
@@ -26,7 +26,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('profile_sekolah', function (Blueprint $table) {
+        Schema::table('profileSekolah', function (Blueprint $table) {
             //
         });
     }

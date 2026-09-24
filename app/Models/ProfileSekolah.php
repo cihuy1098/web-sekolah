@@ -2,26 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProfileSekolah extends Model
 {
-    use HasFactory;
+    protected $table = 'profil_sekolah';
 
-    protected $table = 'profile_sekolah';
+    protected $primaryKey = 'id_profil';
+
+    public $incrementing = true;
 
     protected $fillable = [
-        'name',
-        'npsn',
-        'principal',
-        'address',
-        'phone',
-        'email',
-        'website',
-        'description',
+        'nama_sekolah',
+        'kepala_sekolah',
+        'foto',
         'logo',
-        'galeri',
+        'npsn',
+        'alamat',
+        'kontak',
+        'visi_misi',
+        'tahun_berdiri',
+        'deskripsi',
     ];
-    //
 }

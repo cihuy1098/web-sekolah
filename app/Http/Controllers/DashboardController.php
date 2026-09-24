@@ -11,7 +11,7 @@ class DashboardController extends Controller
         $data = [
             'title' => 'Dashboard'
         ];
-        return view('admin.dashboard', $data);
+        return view('admin_app', $data);
     }
 
     public function indexPublic()

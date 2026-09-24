@@ -40,4 +40,6 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/Profile', [ProfileSekolahController::class, 'index'])
         ->name('admin.profile');
+    Route::get('/Profile/{profileSekolah}/edit', [ProfileSekolahController::class, 'edit'])
+        ->name('admin.profile.edit');
 });
