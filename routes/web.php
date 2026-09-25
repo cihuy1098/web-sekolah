@@ -32,14 +32,37 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/guru', [GuruController::class, 'index'])
         ->name('admin.guru');
+
+    Route::get('/guru/create', [GuruController::class, 'create'])
+        ->name('admin.guru.create');
+
+    Route::post('/guru', [GuruController::class, 'store'])
+        ->name('admin.guru.store');
+
+    Route::get('/guru/{guru}/edit', [GuruController::class, 'edit'])
+        ->name('admin.guru.edit');
+
+    Route::get('/guru/{guru}', [GuruController::class, 'update'])
+        ->name('admin.guru.update');
+
+    Route::get('/guru/{guru}', [GuruController::class, 'destroy'])
+        ->name('admin.guru.destroy');
+
+
     Route::get('/galeri', [GaleriController::class, 'index'])
         ->name('admin.galeri');
 
     Route::get('/berita', [BeritaController::class, 'index'])
         ->name('admin.berita');
-
     Route::get('/Profile', [ProfileSekolahController::class, 'index'])
-        ->name('admin.profile');
+    ->name('admin.profile');
+
+    Route::put('/Profile', [ProfileSekolahController::class, 'update'])
+        ->name('admin.profile.update');
+
+    Route::post('/Profile/photo', [ProfileSekolahController::class, 'updatePhoto'])
+        ->name('admin.profile.photo');
+
     Route::get('/Profile/{profileSekolah}/edit', [ProfileSekolahController::class, 'edit'])
         ->name('admin.profile.edit');
 });
