@@ -31,7 +31,7 @@ Route::prefix('admin')->group(function () {
         ->name('admin.siswa');
 
     Route::get('/guru', [GuruController::class, 'index'])
-        ->name('admin.guru');
+    ->name('admin.guru');
 
     Route::get('/guru/create', [GuruController::class, 'create'])
         ->name('admin.guru.create');
@@ -39,15 +39,14 @@ Route::prefix('admin')->group(function () {
     Route::post('/guru', [GuruController::class, 'store'])
         ->name('admin.guru.store');
 
-    Route::get('/guru/{guru}/edit', [GuruController::class, 'edit'])
+    Route::get('/guru/{id}/edit', [GuruController::class, 'edit'])
         ->name('admin.guru.edit');
 
-    Route::get('/guru/{guru}', [GuruController::class, 'update'])
+    Route::put('/guru/{id}', [GuruController::class, 'update'])
         ->name('admin.guru.update');
 
-    Route::get('/guru/{guru}', [GuruController::class, 'destroy'])
+    Route::delete('/guru/{id}', [GuruController::class, 'destroy'])
         ->name('admin.guru.destroy');
-
 
     Route::get('/galeri', [GaleriController::class, 'index'])
         ->name('admin.galeri');

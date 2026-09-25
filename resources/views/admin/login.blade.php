@@ -23,8 +23,8 @@
     </script>
 
     <!-- Nucleo Icons -->
-    <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/nucleo-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/nucleo-svg.css') }}" rel="stylesheet">
 
     <!-- Main CSS -->
     <link
