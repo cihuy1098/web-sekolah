@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class SiswaController extends Controller
 {
@@ -14,8 +15,35 @@ class SiswaController extends Controller
         return view('admin.siswa.index', compact('siswa'));
     }
 
+    public function eddEdit($id =null)
+    {
+        try {
+            $siswa = $id
+                ? Siswa::findOrFail(Crypt::decrypt($id))
+                : null;
+            } catch (\Exception $e) {
+                return redirect()
+                  ->route('admin.siswa.index')
+                  ->with('error', 'Data siswa tidak ditemukan.');
+
+            }
+
+            return view('admin.siswa.form', $siswa ? compact('siswa') : []);
+        }
+
     public function save(Request $request, $id = null)
     {
+        if ($id){
+            try {
+                $id = Crypt::decrypt($id);
+                $siswa = Siswa::findOrfail($id);
+            } catch (\Exception $e) {
+                return redirect() ->route('admin.siswa.index')->with('error', 'Data siswa tidak ditemukan.');
+            }
+        } else {
+            $siswa = new Siswa();
+        }
+
         $request->validate([
             'nisn'  => 'required|digits:10|unique:siswa,nisn,' . ($id ?? 'NULL'). 'id',
             'nama_siswa' => 'required|string|max:40',
@@ -33,7 +61,7 @@ class SiswaController extends Controller
         ]);
 
         if ($id) {
-            $siswa = Siswa::findOrFail($id);
+            $siswa = Siswa::find($id);
         } else {
             $siswa = new Siswa();
         }
@@ -49,16 +77,36 @@ class SiswaController extends Controller
         return redirect()
            ->route('admin.siswa.index')
            ->with('success', $id ? 'Data siswa berhasil diperbarui.' : 'Data siswa berhasil disimpan.');
+           with('success', $id
+           ? 'Data siswa berhasil diperbaharui.'
+           : 'Data siswa berhasil disimpan.');
     }
 
-    public function eddEdit($id =null)
+    public function show($id)
     {
-        $siswa = Siswa::find($id);
-
-        if($siswa) {
-            return view('admin.siswa.form', compact('siswa'));
-        } else {
-            return view('admin.siswa.form');
+        try {
+            $siwa = Siswa::findOrFail(Crypt:decrypt($id));
+        } catch (\Exception $e) {
+            return redirect()->route('admin.siswa.index')->with('error', 'Data siswa tidak ditemukan.');
         }
+
+        return view('admin.siswa.show', compact('siswa'));
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $siswa = Siswa::findOrFail(Crypt::decrypt($id));
+        } catch (\Exception $e) {
+            return redirect()
+               ->route('admin.siswa.index')
+               ->with('error', 'Data siswa tidak ditemukan.');
+        }
+
+        $siswa->delete();
+
+        return redirect()
+           ->route('admin.siswa.index')
+           ->with('succes', 'Data siswa berhasil dihapus.');
     }
 }
