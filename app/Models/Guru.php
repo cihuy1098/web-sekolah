@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Guru extends Model
 {
-    protected $table = 'guru';
-
-    public $timestamps = false;
+    protected $table = 'gurus';
 
     protected $fillable = [
         'nama_guru',
