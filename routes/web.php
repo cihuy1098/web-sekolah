@@ -4,37 +4,72 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EkstrakulikulerController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\ProfileSekolahController;
 use App\Http\Controllers\SiswaController;
 use App\Models\Ekstrakulikuler;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', [DashboardController::class, 'publicDashboard'])->name('public.dashboard');
 
-Route::get('/', [AuthController::class, 'index'])
-    ->name('admin.login');
+// Route::middleware('guest')->group(function () {
+//     Route::('/login', [AuthController::class, 'index'])
+//         ->name('login');
 
-Route::post('Login-proses', [AuthController::class, 'processLogin'])
-    ->name('admin.login.proses');
+    Route::get('/', [AuthController::class, 'index'])
+        ->name('admin.login');
 
+    Route::post('Login-proses', [AuthController::class, 'processLogin'])
+       ->name('admin.login.proses');
+// });
 
-Route::prefix('admin')->group(function () {
+//lOGOUT
+Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
 
+// =========================================================================
+// ROUTE GROUP ADMIN (WAJIB LOGIN / AUTH MIDDLEWARE)
+// =========================================================================
+
+route::middleware('auth')->prefix('admin')->group(function () {
+
+    //1. Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('admin.dashboard');
 
-    Route::get('/ekstrakulikuler', [Ekstrakulikuler::class, 'index'])
-        ->name('admin.ekstrakulikuler');
+    //2. Profile sekolah
+    Route::get('/admin/Profile', [ProfileSekolahController::class, 'index'])
+        ->name('admin.profile');
 
-    // ================= GURU =================
+    Route::put('/admin/Profile', [ProfileSekolahController::class, 'update'])
+        ->name('admin.profile');
+
+    Route::post('/admin/Profile/photo', [ProfileSekolahController::class, 'updatePhoto'])
+        ->name('admin.profile.photo');
+
+});
+    // ================= Ekstrakulikuler =================
+Route::prefix('ekstrakulikuler')->group(function () {
+
+    Route::get('/', [EkstrakulikulerController::class, 'index'])
+        ->name('admin.ekstrakulikuler.index');
+    Route::get('/add-edit/{id}', [EkstrakulikulerController::class, 'addEdit'])
+        ->name('admin.ekstrakulikuler.addEdit');
+    Route::post('/save{id?}', [EkstrakulikulerController::class, 'save'])
+        ->name('admin.ekstrakulikuler.save');
+    Route::get('/{id}', [EkstrakulikulerController::class, 'index'])
+        ->name('admin.ekstrakulikuler.show');
+    Route::get('/{id}', [EkstrakulikulerController::class, 'index'])
+        ->name('admin.ekstrakulikuler.delete');
+
+    // ================= SISWA =================
 
     Route::get('/siswa', [SiswaController::class, 'index'])
         ->name('admin.siswa.index');
-    Route::get('/create', [SiswaController::class, 'create'])
-        ->name('admin.siswa.create');
-    Route::get('/{id}/edit', [SiswaController::class, 'edit'])
-        ->name('admin.siswa.edit');
+    Route::get('/add-edit/{id}', [SiswaController::class, 'addEdit'])
+        ->name('admin.siswa.addEdit');
     Route::get('/save/{id}', [SiswaController::class, 'save'])
         ->name('admin.siswa.save');
     Route::get('/{id}', [SiswaController::class, 'show'])
@@ -68,12 +103,4 @@ Route::prefix('admin')->group(function () {
     Route::get('/berita', [BeritaController::class, 'index'])
         ->name('admin.berita');
 
-    Route::get('/admin/Profile', [ProfileSekolahController::class, 'index'])
-        ->name('admin.profile');
-
-    Route::put('/admin/Profile', [ProfileSekolahController::class, 'update'])
-        ->name('admin.profile');
-
-    Route::post('/admin/Profile/photo', [ProfileSekolahController::class, 'updatePhoto'])
-        ->name('admin.profile.photo');
 });
